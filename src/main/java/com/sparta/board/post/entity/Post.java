@@ -33,12 +33,8 @@ public class Post extends Timestamped {
     }
 
     public void update(PostRequestDto requestDto) {
-        if (this.password.equals(requestDto.getPassword())) {
-            this.title = requestDto.getTitle();
-            this.writer = requestDto.getWriter();
-            this.contents = requestDto.getContents();
-        } else {
-            System.out.println("비밀번호가 일치 하지 않습니다.");
-        }
+        this.title = requestDto.getTitle();
+        this.writer = requestDto.getWriter();
+        this.contents = requestDto.getContents();
     }
 }

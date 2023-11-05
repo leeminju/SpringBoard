@@ -3,6 +3,7 @@ package com.sparta.board.post.controller;
 import com.sparta.board.post.dto.PostRequestDto;
 import com.sparta.board.post.dto.PostResponseDto;
 import com.sparta.board.post.service.PostService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,12 +34,12 @@ public class PostController {
     }
 
     @PutMapping("/post/{id}")
-    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+    public ResponseEntity<?> updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         return postService.updatePost(id, requestDto);
     }
 
     @DeleteMapping("/post/{id}")
-    public Long deletePost(@PathVariable Long id, String passwd) {
+    public ResponseEntity<?> deletePost(@PathVariable Long id, String passwd) {
         return postService.deletePost(id, passwd);
     }
 

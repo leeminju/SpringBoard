@@ -14,13 +14,13 @@ public class PostResponseDto {
     private String title;
     private String writer;
     private String contents;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     public PostResponseDto(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.writer = post.getWriter();
         this.contents = post.getContents();
-        this.createAt = post.getCreatedAt();
+        this.createdAt = post.getCreatedAt();
     }
 }

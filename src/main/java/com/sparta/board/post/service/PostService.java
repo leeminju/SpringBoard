@@ -5,9 +5,14 @@ import com.sparta.board.post.dto.PostResponseDto;
 import com.sparta.board.post.entity.Post;
 import com.sparta.board.post.repository.PostRepository;
 import jakarta.transaction.Transactional;
+import org.antlr.v4.runtime.InputMismatchException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpHeaders;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -36,20 +41,25 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
+    public ResponseEntity<?> updatePost(Long id, PostRequestDto requestDto) {
         Post post = findPost(id);
-        post.update(requestDto);
-        return new PostResponseDto(post);
+        if (post.getPassword().equals(requestDto.getPassword())) {
+            post.update(requestDto);
+            return ResponseEntity.status(HttpStatus.OK).body(post);
+        } else {
+            String message = HttpStatus.BAD_REQUEST.value() + " " + HttpStatus.BAD_REQUEST.getReasonPhrase();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+        }
     }
 
-    public Long deletePost(Long id, String passwd) {
+    public ResponseEntity<?> deletePost(Long id, String passwd) {
         Post post = findPost(id);
         if (post.getPassword().equals(passwd)) {
             postRepository.delete(post);
-            return id;
+            return ResponseEntity.status(HttpStatus.OK).body(post);
         } else {
-            System.out.println("오류");
-            return id;
+            String message = HttpStatus.BAD_REQUEST.value() + " " + HttpStatus.BAD_REQUEST.getReasonPhrase();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
         }
     }
 
@@ -62,7 +72,13 @@ public class PostService {
 
     }
 
-
+    private Optional<Post> passwordCheck(Post post, String password) {
+        if (!post.getPassword().equals(password)) {
+            return Optional.empty();
+        } else {
+            return Optional.of(post);
+        }
+    }
 
 
 }
