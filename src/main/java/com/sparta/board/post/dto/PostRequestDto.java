@@ -1,6 +1,5 @@
 package com.sparta.board.post.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter

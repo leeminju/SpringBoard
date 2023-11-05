@@ -5,14 +5,11 @@ import com.sparta.board.post.dto.PostResponseDto;
 import com.sparta.board.post.entity.Post;
 import com.sparta.board.post.repository.PostRepository;
 import jakarta.transaction.Transactional;
-import org.antlr.v4.runtime.InputMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.net.http.HttpHeaders;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PostService {
@@ -52,11 +49,11 @@ public class PostService {
         }
     }
 
-    public ResponseEntity<?> deletePost(Long id, String passwd) {
+    public ResponseEntity<?> deletePost(Long id, PostRequestDto requestDto) {
         Post post = findPost(id);
-        if (post.getPassword().equals(passwd)) {
+        if (post.getPassword().equals(requestDto.getPassword())) {
             postRepository.delete(post);
-            return ResponseEntity.status(HttpStatus.OK).body(post);
+            return ResponseEntity.status(HttpStatus.OK).body(id + "번 게시글 삭제 성공");
         } else {
             String message = HttpStatus.BAD_REQUEST.value() + " " + HttpStatus.BAD_REQUEST.getReasonPhrase();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
@@ -70,14 +67,6 @@ public class PostService {
         // "status": 500  "error": "Internal Server Error"
         // 서버에 오류가 발생했음
 
-    }
-
-    private Optional<Post> passwordCheck(Post post, String password) {
-        if (!post.getPassword().equals(password)) {
-            return Optional.empty();
-        } else {
-            return Optional.of(post);
-        }
     }
 
 

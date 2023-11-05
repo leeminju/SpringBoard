@@ -20,7 +20,8 @@
         * {
             font-family: 'Stylish';
         }
-         .mypostingbox {
+
+        .mypostingbox {
             width: 500px;
             margin: 20px auto 0px auto;
             padding: 20px;
@@ -84,6 +85,7 @@
             }
             return true;
         }
+
         function modifyPost() {
             let title = $('#title').val();
             let writer = $('#writer').val();
@@ -111,21 +113,35 @@
                 data: JSON.stringify(data),
                 success: function (response) {
                     alert("게시글 수정에 성공하였습니다.");
-                },error: function (xhr, status, error) {
-
+                }, error: function (xhr, status, error) {
                     alert("비밀번호가 일치하지 않습니다.");
                 }
             });
         }
 
         function deletePost() {
+            let password = $('#password').val();
+
+            if (!isValid("비밀번호", password, 8, 20)) {
+                return;
+            }
+
+
+            let data = {
+                'password': password,
+            };
+
             $.ajax({
                 type: "DELETE",
                 url: `/api/post/${id}`,
+                contentType: "application/json",
+                data: JSON.stringify(data),
                 success: function (response) {
                     alert('게시글 삭제에 성공하였습니다.');
                     opener.location.replace("index.html");
                     window.close();
+                }, error: function (xhr, status, error) {
+                    alert("비밀번호가 일치하지 않습니다.");
                 }
             })
         }
