@@ -42,7 +42,8 @@ public class PostService {
         Post post = findPost(id);
         if (post.getPassword().equals(requestDto.getPassword())) {
             post.update(requestDto);
-            return ResponseEntity.status(HttpStatus.OK).body(post);
+            PostResponseDto responseDto = new PostResponseDto(post);
+            return ResponseEntity.status(HttpStatus.OK).body(responseDto);
         } else {
             String message = HttpStatus.BAD_REQUEST.value() + " " + HttpStatus.BAD_REQUEST.getReasonPhrase();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
