@@ -14,10 +14,10 @@
     
     [API 명세서](https://www.notion.so/1023f237132042ca9c1559965323202a?pvs=21)
     
-- **ERD 작성**
-    ![ERD](https://github.com/leeminju/SpringBoard/assets/19209147/f88ffaeb-8deb-4f80-a1b5-4d81dbb1e281)
+**ERD 작성**
+    
+- ![ERD](https://github.com/leeminju/SpringBoard/assets/19209147/f88ffaeb-8deb-4f80-a1b5-4d81dbb1e281)
 
-  
     https://www.erdcloud.com/d/FSLx8mZbgzq532WXr
     
 
