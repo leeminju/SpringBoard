@@ -16,7 +16,8 @@
     
 **ERD 작성**
     
-- ![ERD](https://github.com/leeminju/SpringBoard/assets/19209147/f88ffaeb-8deb-4f80-a1b5-4d81dbb1e281)
+- ![image](https://github.com/leeminju/SpringBoard/assets/19209147/78ea63e1-3372-4ac2-b228-7fa88d552990)
+
 
     https://www.erdcloud.com/d/FSLx8mZbgzq532WXr
     
