@@ -122,20 +122,18 @@
         function deletePost() {
             let password = $('#password').val();
 
+
             if (!isValid("비밀번호", password, 8, 20)) {
                 return;
             }
-
-
-            let data = {
-                'password': password,
-            };
 
             $.ajax({
                 type: "DELETE",
                 url: `/api/post/${id}`,
                 contentType: "application/json",
-                data: JSON.stringify(data),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("password", password);
+                },
                 success: function (response) {
                     alert('게시글 삭제에 성공하였습니다.');
                     opener.location.replace("index.html");

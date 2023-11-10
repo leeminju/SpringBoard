@@ -45,19 +45,19 @@ public class PostService {
             PostResponseDto responseDto = new PostResponseDto(post);
             return ResponseEntity.status(HttpStatus.OK).body(responseDto);
         } else {
-            String message = HttpStatus.BAD_REQUEST.value() + " " + HttpStatus.BAD_REQUEST.getReasonPhrase();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+            String message = HttpStatus.FORBIDDEN.value() + " " + HttpStatus.FORBIDDEN.getReasonPhrase();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(message);
         }
     }
 
-    public ResponseEntity<?> deletePost(Long id, PostRequestDto requestDto) {
+    public ResponseEntity<?> deletePost(Long id, String password) {
         Post post = findPost(id);
-        if (post.getPassword().equals(requestDto.getPassword())) {
+        if (post.getPassword().equals(password)) {
             postRepository.delete(post);
             return ResponseEntity.status(HttpStatus.OK).body(id + "번 게시글 삭제 성공");
         } else {
-            String message = HttpStatus.BAD_REQUEST.value() + " " + HttpStatus.BAD_REQUEST.getReasonPhrase();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+            String message = HttpStatus.FORBIDDEN.value() + " " + HttpStatus.FORBIDDEN.getReasonPhrase();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(message);
         }
     }
 
